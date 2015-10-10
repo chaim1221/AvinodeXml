@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvinodeXmlParser", "AvinodeXmlParser\AvinodeXmlParser.csproj", "{D486117F-D59B-4067-99DB-BAF66CFE50B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvinodeXmlTests", "ClassLibrary1\AvinodeXmlTests.csproj", "{6A18E063-EB40-402C-BB86-C325D133F7DC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvinodeXmlTests", "AvinodeXmlTests\AvinodeXmlTests.csproj", "{6A18E063-EB40-402C-BB86-C325D133F7DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
