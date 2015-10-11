@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Xml;
 using AvinodeXmlParser;
 using FluentAssertions;
@@ -58,7 +59,7 @@ namespace AvinodeXmlTests
         private void ThenHelperHasInstantiatedXmlField()
         {
             _helper.XmlStuff.Should().NotBeNull();
-            _helper.XmlStuff.Should().Be(_validXml);
+            _helper.XmlStuff.OuterXml.Should().Be(_validXml);
             _helper.XmlStuff.Should().BeOfType<XmlDocument>();
         }
 
@@ -71,7 +72,7 @@ namespace AvinodeXmlTests
         {
             _validXml = @"<?xml version=""1.0""?> 
                                <catalog>
-                                   <book id = ""bk101"" />
+                                   <book id=""bk101"" />
                                </catalog>
             ";
         }

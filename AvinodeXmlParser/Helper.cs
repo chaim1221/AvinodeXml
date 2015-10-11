@@ -8,7 +8,7 @@ namespace AvinodeXmlParser
     {
         public object Arg1;
         public object Arg2;
-        public object XmlStuff;
+        public XmlDocument XmlStuff;
 
         public void Validate(string[] args)
         {
@@ -22,7 +22,9 @@ namespace AvinodeXmlParser
 
         public void ParseXml(string validXml)
         {
-            XmlStuff = validXml;
+            var doc = new XmlDocument { PreserveWhitespace = true };
+            doc.LoadXml(validXml);
+            XmlStuff = doc;
         }
     }
 }
