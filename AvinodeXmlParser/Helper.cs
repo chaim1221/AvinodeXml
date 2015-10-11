@@ -12,6 +12,7 @@ namespace AvinodeXmlParser
         public string RelativeUri;
         public XmlDocument XmlDocument;
         public XmlNodeList XmlNodeList;
+        public AvinodeMenuItem AvinodeMenuItem;
 
         public void Validate(string[] args)
         {
@@ -29,6 +30,7 @@ namespace AvinodeXmlParser
             xmlDocument.Load(FilePath);
             XmlDocument = xmlDocument;
             XmlNodeList = xmlDocument.GetElementsByTagName("item");
+            
         }
     }
 }

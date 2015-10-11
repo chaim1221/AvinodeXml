@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Xml;
 using AvinodeXmlParser;
 using FluentAssertions;
@@ -59,6 +60,25 @@ namespace AvinodeXmlTests
             GivenANewHelper().WithTwoValidArguments();
             WhenValidateMethodInvoked().AndParseXmlMethodInvoked();
             ThenHelperHasInstantiatedXmlNodeListField();
+        }
+
+        [Test]
+        public void ShouldReturnAModelOfNodeValues()
+        {
+            GivenANewHelper().WithTwoValidArguments();
+            WhenValidateMethodInvoked().AndParseXmlMethodInvoked();
+            ThenHelperPopulatesAModelWhichContainsNodeValues();
+        }
+
+        private void ThenHelperPopulatesAModelWhichContainsNodeValues()
+        {
+            AvinodeMenuItem expected = new AvinodeMenuItem
+            {
+                DisplayName = "Home",
+                Path = new Uri("/Default.aspx", UriKind.Relative),
+                SubMenuItem = null
+            };
+            _helper.AvinodeMenuItem.Should().Be(expected);
         }
 
         private void ThenHelperHasInstantiatedXmlNodeListField()
@@ -122,4 +142,3 @@ namespace AvinodeXmlTests
         }
     }
 }
-
