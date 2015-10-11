@@ -32,7 +32,13 @@ namespace AvinodeXmlParser
             XmlNodeList = xmlDocument.SelectNodes("menu/item");
             AvinodeMenuItems = new List<AvinodeMenuItem>();
             if (XmlNodeList == null) return;
-            foreach (XmlNode node in XmlNodeList)
+            UnfurlNodes(XmlNodeList);
+        }
+
+        private void UnfurlNodes(XmlNodeList xmlNodes)
+        {
+            var i = 0;
+            foreach (XmlNode node in xmlNodes)
             {
                 var displayName = node["displayName"];
                 var path = node["path"];
@@ -40,12 +46,13 @@ namespace AvinodeXmlParser
 
                 if (displayName != null && path != null)
                     AvinodeMenuItems.Add(new AvinodeMenuItem
-                    { 
+                    {
                         DisplayName = displayName.InnerText,
                         Path = new Uri(path.Attributes["value"].Value, UriKind.Relative),
                     });
+                i++;
 
-                break;
+                if (i == 1) break;
             }
         }
     }
