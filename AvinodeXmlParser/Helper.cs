@@ -24,18 +24,14 @@ namespace AvinodeXmlParser
             RelativeUri = args[1];
         }
 
-        public void ParseXml()
+        public XmlNodeList ParseXml()
         {
             var xmlDocument = new XmlDocument();
             xmlDocument.Load(FilePath);
-            XmlDocument = xmlDocument;
-            XmlNodeList = xmlDocument.SelectNodes("menu/item");
-            AvinodeMenuItems = new List<AvinodeMenuItem>();
-            if (XmlNodeList == null) return;
-            AvinodeMenuItems = UnfurlNodes(XmlNodeList);
+            return xmlDocument.SelectNodes("menu/item");
         }
 
-        private List<AvinodeMenuItem> UnfurlNodes(XmlNodeList xmlNodes)
+        public List<AvinodeMenuItem> UnfurlNodes(XmlNodeList xmlNodes)
         {
             var avinodeMenuItems = new List<AvinodeMenuItem>();
             foreach (XmlNode node in xmlNodes)

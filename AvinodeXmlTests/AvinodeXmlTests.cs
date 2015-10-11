@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using System.Xml;
 using AvinodeXmlParser;
 using FluentAssertions;
@@ -14,9 +13,11 @@ namespace AvinodeXmlTests
         Helper _helper;
         private string _arg1;
         private string _arg2;
+        private XmlNodeList _then;
+        private List<AvinodeMenuItem> _result;
 
         [Test]
-        public void ShouldAcceptTwoValidArguments()
+        public void MethodValidateShouldAcceptTwoValidArguments()
         {
             GivenANewHelper().WithTwoValidArguments();
             WhenValidateMethodInvoked();
@@ -30,7 +31,7 @@ namespace AvinodeXmlTests
         }
 
         [Test]
-        public void FirstArgShouldThrowExceptionIfPathNotValid()
+        public void MethodValidateFirstArgShouldThrowExceptionIfPathNotValid()
         {
             GivenANewHelper().WithAnInvalidPath();
             var del = new TestDelegate(() => WhenValidateMethodInvoked());
@@ -38,7 +39,7 @@ namespace AvinodeXmlTests
         }
 
         [Test]
-        public void SecondArgShouldThrowExceptionIfUriNotWellFormed()
+        public void MethodValidateSecondArgShouldThrowExceptionIfUriNotWellFormed()
         {
             GivenANewHelper().WithAnInvalidUri();
             var del = new TestDelegate(() => WhenValidateMethodInvoked());
@@ -50,25 +51,21 @@ namespace AvinodeXmlTests
         {
             GivenANewHelper().WithTwoValidArguments();
             WhenValidateMethodInvoked().AndParseXmlMethodInvoked();
-            ThenHelperHasInstantiatedXmlDocumentField()
-                .ThenHelperHasXmlContentInAFieldThatIgnoresWhitespace()
-                .ThenResultingFieldIsOfType<XmlDocument>(_helper.XmlDocument);
-        }
-
-        [Test]
-        public void ShouldBeAbleToEnumerateXmlFields()
-        {
-            GivenANewHelper().WithTwoValidArguments();
-            WhenValidateMethodInvoked().AndParseXmlMethodInvoked();
-            ThenHelperHasInstantiatedXmlNodeListField();
+            ThenHelperReturnsXmlNodeList();
         }
 
         [Test]
         public void ShouldReturnAModelOfNodeValues()
         {
             GivenANewHelper().WithTwoValidArguments();
-            WhenValidateMethodInvoked().AndParseXmlMethodInvoked();
+            WhenValidateMethodInvoked().AndParseXmlMethodInvoked()
+                .AndUnfurlNodesMethodInvoked();
             ThenHelperPopulatesAModelWhichContainsNodeValues();
+        }
+
+        private void AndUnfurlNodesMethodInvoked()
+        {
+            _result = _helper.UnfurlNodes(_then);
         }
 
         private void ThenHelperPopulatesAModelWhichContainsNodeValues()
@@ -134,36 +131,22 @@ namespace AvinodeXmlTests
                     }
                 }
             };
-            _helper.AvinodeMenuItems.ShouldBeEquivalentTo(expected);
+
+            _result.ShouldBeEquivalentTo(expected);
         }
 
-        private void ThenHelperHasInstantiatedXmlNodeListField()
-        {
-            _helper.XmlNodeList.Should().NotBeNull();
-        }
-
-        private void ThenResultingFieldIsOfType<T>(XmlDocument xmlDocument)
-        {
-            xmlDocument.Should().BeOfType<T>();
-        }
-
-        private AvinodeXmlTests ThenHelperHasXmlContentInAFieldThatIgnoresWhitespace()
+        private void ThenHelperReturnsXmlNodeList()
         {
             var xmlDoc = new XmlDocument { PreserveWhitespace = false };
             xmlDoc.Load(_arg1);
-            _helper.XmlDocument.InnerXml.Should().Be(xmlDoc.InnerXml);
-            return this;
+            var expected = xmlDoc.SelectNodes("menu/item");
+            _then.ShouldBeEquivalentTo(expected);
         }
 
-        private AvinodeXmlTests ThenHelperHasInstantiatedXmlDocumentField()
+        private AvinodeXmlTests AndParseXmlMethodInvoked()
         {
-            _helper.XmlDocument.Should().NotBeNull();
+            _then = _helper.ParseXml();
             return this;
-        }
-
-        private void AndParseXmlMethodInvoked()
-        {
-            _helper.ParseXml();
         }
 
         private void WithAnInvalidUri()
