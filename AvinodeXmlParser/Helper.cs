@@ -28,7 +28,7 @@ namespace AvinodeXmlParser
             var xmlDocument = new XmlDocument();
             xmlDocument.Load(FilePath);
             XmlDocument = xmlDocument;
-            var items = xmlDocument.GetElementsByTagName("item");
+            XmlNodeList = xmlDocument.GetElementsByTagName("item");
         }
     }
 }
