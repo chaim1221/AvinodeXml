@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace AvinodeXmlParser
 {
@@ -9,7 +10,7 @@ namespace AvinodeXmlParser
 
         public void Validate(string[] args)
         {
-            if (args[0] == "arg1")
+            if (!File.Exists(args[0]))
                 throw new ArgumentException(args[0]);
             Arg1 = args[0];
             Arg2 = args[1];

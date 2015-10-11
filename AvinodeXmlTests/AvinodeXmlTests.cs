@@ -25,7 +25,7 @@ namespace AvinodeXmlTests
         {
             _arg1 = "c:\\schedaeromenu.xml";
             _arg2 = "/default.aspx";
-            _args = new [] {_arg1, _arg2 };
+            _args = new [] { _arg1, _arg2 };
         }
 
         [Test]
