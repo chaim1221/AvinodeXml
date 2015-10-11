@@ -15,6 +15,7 @@ namespace AvinodeXmlTests
         private string _arg2;
         private XmlNodeList _then;
         private List<AvinodeMenuItem> _result;
+        private List<AvinodeMenuItem> _expectation;
 
         [Test]
         public void MethodValidateShouldAcceptTwoValidArguments()
@@ -47,7 +48,7 @@ namespace AvinodeXmlTests
         }
 
         [Test]
-        public void ShouldBeAbleToParseAnXmlDocumentFromAFile()
+        public void MethodParseXmlShouldBeAbleToParseXmlNodesFromAFile()
         {
             GivenANewHelper().WithTwoValidArguments();
             WhenValidateMethodInvoked().AndParseXmlMethodInvoked();
@@ -63,6 +64,21 @@ namespace AvinodeXmlTests
             ThenHelperPopulatesAModelWhichContainsNodeValues();
         }
 
+        [Test]
+        public void AllThatStuffWorksWithTheOtherFileToo()
+        {
+            GivenANewHelper().WithNewValidArguments();
+            WhenValidateMethodInvoked().AndParseXmlMethodInvoked()
+                .AndUnfurlNodesMethodInvoked();
+            ThenHelperPopulatesAModelWhichContainsNodeValues();
+        }
+
+        private void WithNewValidArguments()
+        {
+            _arg1 = ".\\wyvernmenu.xml";
+            _arg2 = "/default.aspx";
+        }
+
         private void AndUnfurlNodesMethodInvoked()
         {
             _result = _helper.UnfurlNodes(_then);
@@ -70,69 +86,8 @@ namespace AvinodeXmlTests
 
         private void ThenHelperPopulatesAModelWhichContainsNodeValues()
         {
-            var expected = new List<AvinodeMenuItem>
-            {
-                new AvinodeMenuItem
-                {
-                    DisplayName = "Home",
-                    Path = new Uri("/Default.aspx", UriKind.Relative),
-                    SubMenuItem = null
-                },
-                new AvinodeMenuItem
-                {
-                    DisplayName = "Trips",
-                    Path = new Uri("/Requests/Quotes/CreateQuote.aspx", UriKind.Relative),
-                    SubMenuItem = new List<AvinodeMenuItem>
-                    {
-                        new AvinodeMenuItem
-                        {
-                            DisplayName = "Create Quote",
-                            Path = new Uri("/Requests/Quotes/CreateQuote.aspx", UriKind.Relative),
-                            SubMenuItem = null
-                        },
-                        new AvinodeMenuItem
-                        {
-                            DisplayName = "Open Quotes",
-                            Path = new Uri("/Requests/OpenQuotes.aspx", UriKind.Relative),
-                            SubMenuItem = null
-                        },
-                        new AvinodeMenuItem
-                        {
-                            DisplayName = "Scheduled Trips",
-                            Path = new Uri("/Requests/Trips/ScheduledTrips.aspx", UriKind.Relative),
-                            SubMenuItem = null
-                        }
-                    }
-                },
-                new AvinodeMenuItem
-                {
-                    DisplayName = "Company",
-                    Path = new Uri("/mvc/company/view", UriKind.Relative),
-                    SubMenuItem = new List<AvinodeMenuItem>
-                    {
-                        new AvinodeMenuItem
-                        {
-                            DisplayName = "Customers",
-                            Path = new Uri("/customers/customers.aspx", UriKind.Relative),
-                            SubMenuItem = null
-                        },
-                        new AvinodeMenuItem
-                        {
-                            DisplayName = "Pilots",
-                            Path = new Uri("/pilots/pilots.aspx", UriKind.Relative),
-                            SubMenuItem = null
-                        },
-                        new AvinodeMenuItem
-                        {
-                            DisplayName = "Aircraft",
-                            Path = new Uri("/aircraft/Aircraft.aspx", UriKind.Relative),
-                            SubMenuItem = null
-                        }
-                    }
-                }
-            };
-
-            _result.ShouldBeEquivalentTo(expected);
+            _expectation = AvinodeMenuItems();
+            _result.ShouldBeEquivalentTo(_expectation);
         }
 
         private void ThenHelperReturnsXmlNodeList()
@@ -178,6 +133,171 @@ namespace AvinodeXmlTests
         {
             _helper = new Helper();
             return this;
+        }
+        private List<AvinodeMenuItem> AvinodeMenuItems()
+        {
+            switch (_arg1)
+            {
+                case ".\\schedaeromenu.xml":            
+                    return new List<AvinodeMenuItem>
+                    {
+                        new AvinodeMenuItem
+                        {
+                            DisplayName = "Home",
+                            Path = new Uri("/Default.aspx", UriKind.Relative),
+                            SubMenuItem = null
+                        },
+                        new AvinodeMenuItem
+                        {
+                            DisplayName = "Trips",
+                            Path = new Uri("/Requests/Quotes/CreateQuote.aspx", UriKind.Relative),
+                            SubMenuItem = new List<AvinodeMenuItem>
+                            {
+                                new AvinodeMenuItem
+                                {
+                                    DisplayName = "Create Quote",
+                                    Path = new Uri("/Requests/Quotes/CreateQuote.aspx", UriKind.Relative),
+                                    SubMenuItem = null
+                                },
+                                new AvinodeMenuItem
+                                {
+                                    DisplayName = "Open Quotes",
+                                    Path = new Uri("/Requests/OpenQuotes.aspx", UriKind.Relative),
+                                    SubMenuItem = null
+                                },
+                                new AvinodeMenuItem
+                                {
+                                    DisplayName = "Scheduled Trips",
+                                    Path = new Uri("/Requests/Trips/ScheduledTrips.aspx", UriKind.Relative),
+                                    SubMenuItem = null
+                                }
+                            }
+                        },
+                        new AvinodeMenuItem
+                        {
+                            DisplayName = "Company",
+                            Path = new Uri("/mvc/company/view", UriKind.Relative),
+                            SubMenuItem = new List<AvinodeMenuItem>
+                            {
+                                new AvinodeMenuItem
+                                {
+                                    DisplayName = "Customers",
+                                    Path = new Uri("/customers/customers.aspx", UriKind.Relative),
+                                    SubMenuItem = null
+                                },
+                                new AvinodeMenuItem
+                                {
+                                    DisplayName = "Pilots",
+                                    Path = new Uri("/pilots/pilots.aspx", UriKind.Relative),
+                                    SubMenuItem = null
+                                },
+                                new AvinodeMenuItem
+                                {
+                                    DisplayName = "Aircraft",
+                                    Path = new Uri("/aircraft/Aircraft.aspx", UriKind.Relative),
+                                    SubMenuItem = null
+                                }
+                            }
+                        }
+                    };
+                case ".\\wyvernmenu.xml":
+                    return new List<AvinodeMenuItem>
+                    {
+                        new AvinodeMenuItem
+                        {
+                            DisplayName = "Home",
+                            Path = new Uri("/mvc/wyvern/home", UriKind.Relative),
+                            SubMenuItem = new List<AvinodeMenuItem>
+                            {
+                                new AvinodeMenuItem
+                                {
+                                    DisplayName = "News",
+                                    Path = new Uri("/mvc/wyvern/home/news", UriKind.Relative),
+                                    SubMenuItem = null
+                                },
+                                new AvinodeMenuItem
+                                {
+                                    DisplayName = "Directory",
+                                    Path = new Uri("/Directory/Directory.aspx", UriKind.Relative),
+                                    SubMenuItem = new List<AvinodeMenuItem>
+                                    {
+                                        new AvinodeMenuItem
+                                        {
+                                            DisplayName = "Favorites",
+                                            Path = new Uri("/TWR/Directory.aspx", UriKind.Relative),
+                                            SubMenuItem = null
+                                        },
+                                        new AvinodeMenuItem
+                                        {
+                                            DisplayName = "Search Aircraft",
+                                            Path = new Uri("/TWR/AircraftSearch.aspx", UriKind.Relative),
+                                            SubMenuItem = null
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        new AvinodeMenuItem
+                        {
+                            DisplayName = "PASS",
+                            Path = new Uri("/PASS/GeneratePASS.aspx", UriKind.Relative),
+                            SubMenuItem = new List<AvinodeMenuItem>
+                            {
+                                new AvinodeMenuItem
+                                {
+                                    DisplayName = "Create New",
+                                    Path = new Uri("/PASS/GeneratePASS.aspx", UriKind.Relative),
+                                    SubMenuItem = null
+                                },
+                                new AvinodeMenuItem
+                                {
+                                    DisplayName = "Sent Requests",
+                                    Path = new Uri("/PASS/YourPASSReports.aspx", UriKind.Relative),
+                                    SubMenuItem = null
+                                },
+                                new AvinodeMenuItem
+                                {
+                                    DisplayName = "Received Requests",
+                                    Path = new Uri("/PASS/Pending/PendingRequests.aspx", UriKind.Relative),
+                                    SubMenuItem = null
+                                }
+                            }
+                        },
+                        new AvinodeMenuItem
+                        {
+                            DisplayName = "Company",
+                            Path = new Uri("/mvc/company/view", UriKind.Relative),
+                            SubMenuItem = new List<AvinodeMenuItem>
+                            {
+                                new AvinodeMenuItem
+                                {
+                                    DisplayName = "Users",
+                                    Path = new Uri("/mvc/account/list", UriKind.Relative),
+                                    SubMenuItem = null
+                                },
+                                new AvinodeMenuItem
+                                {
+                                    DisplayName = "Aircraft",
+                                    Path = new Uri("/aircraft/fleet.aspx", UriKind.Relative),
+                                    SubMenuItem = null
+                                },
+                                new AvinodeMenuItem
+                                {
+                                    DisplayName = "Insurance",
+                                    Path = new Uri("/insurance/policies.aspx", UriKind.Relative),
+                                    SubMenuItem = null
+                                },
+                                new AvinodeMenuItem
+                                {
+                                    DisplayName = "Certificate",
+                                    Path = new Uri("/Certificates/Certificates.aspx", UriKind.Relative),
+                                    SubMenuItem = null
+                                },
+                            }
+                        }
+                    };
+            }
+            return null;
         }
     }
 }
