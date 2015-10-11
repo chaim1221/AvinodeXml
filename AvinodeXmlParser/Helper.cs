@@ -6,7 +6,7 @@ namespace AvinodeXmlParser
 {
     public class Helper
     {
-        public object Arg1;
+        public string Arg1;
         public object Arg2;
         public XmlDocument XmlStuff;
 
@@ -20,10 +20,10 @@ namespace AvinodeXmlParser
             Arg2 = args[1];
         }
 
-        public void ParseXml(string validXml)
+        public void ParseXml()
         {
             var doc = new XmlDocument { PreserveWhitespace = true };
-            doc.LoadXml(validXml);
+            doc.Load(Arg1);
             XmlStuff = doc;
         }
     }

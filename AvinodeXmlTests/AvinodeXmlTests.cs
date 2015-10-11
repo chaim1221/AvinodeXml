@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text.RegularExpressions;
 using System.Xml;
 using AvinodeXmlParser;
 using FluentAssertions;
@@ -14,7 +13,6 @@ namespace AvinodeXmlTests
         private string _arg1;
         private string _arg2;
         private string[] _args;
-        private string _validXml;
 
         [Test]
         public void ShouldAcceptTwoValidArguments()
@@ -49,32 +47,26 @@ namespace AvinodeXmlTests
         }
 
         [Test]
-        public void ShouldBeAbleToParseAnXmlDocument()
+        public void ShouldBeAbleToParseAnXmlDocumentFromAFile()
         {
-            GivenANewHelper().WithTwoValidArguments().WithValidXml();
+            GivenANewHelper().WithTwoValidArguments();
             WhenValidateMethodInvoked().AndParseXmlMethodInvoked();
-            ThenHelperHasInstantiatedXmlField();
+            ThenHelperHasInstantiatedXmlDocumentField();
         }
 
-        private void ThenHelperHasInstantiatedXmlField()
+        private void ThenHelperHasInstantiatedXmlDocumentField()
         {
+            var expected = new XmlDocument {PreserveWhitespace = true};
+            expected.Load(_arg1);
+
             _helper.XmlStuff.Should().NotBeNull();
-            _helper.XmlStuff.OuterXml.Should().Be(_validXml);
+            _helper.XmlStuff.Should().BeEquivalentTo(expected);
             _helper.XmlStuff.Should().BeOfType<XmlDocument>();
         }
 
         private void AndParseXmlMethodInvoked()
         {
-            _helper.ParseXml(_validXml);
-        }
-
-        private void WithValidXml()
-        {
-            _validXml = @"<?xml version=""1.0""?> 
-                               <catalog>
-                                   <book id=""bk101"" />
-                               </catalog>
-            ";
+            _helper.ParseXml();
         }
 
         private void WithAnInvalidUri()
