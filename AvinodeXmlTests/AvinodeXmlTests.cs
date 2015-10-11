@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml;
 using AvinodeXmlParser;
 using FluentAssertions;
 using NUnit.Framework;
@@ -58,6 +59,7 @@ namespace AvinodeXmlTests
         {
             _helper.XmlStuff.Should().NotBeNull();
             _helper.XmlStuff.Should().Be(_validXml);
+            _helper.XmlStuff.Should().BeOfType<XmlDocument>();
         }
 
         private void AndParseXmlMethodInvoked()
