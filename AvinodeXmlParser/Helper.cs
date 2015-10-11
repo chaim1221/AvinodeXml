@@ -1,4 +1,6 @@
-﻿namespace AvinodeXmlParser
+﻿using System;
+
+namespace AvinodeXmlParser
 {
     public class Helper
     {
@@ -9,6 +11,7 @@
         {
             Arg1 = args[0];
             Arg2 = args[1];
+            throw new ArgumentException(args[0]);
         }
     }
 }

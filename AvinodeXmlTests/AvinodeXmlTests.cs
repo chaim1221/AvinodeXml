@@ -22,7 +22,7 @@ namespace AvinodeXmlTests
         }
 
         [Test]
-        public void FirstArgShouldBeAValidPath()
+        public void FirstArgShouldThrowExceptionIfPathNotAValid()
         {
             GivenANewHelper().AndTwoRandomArguments();
             var del = new TestDelegate(WhenValidateMethodInvoked);
