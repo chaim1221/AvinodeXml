@@ -1,4 +1,5 @@
-﻿using AvinodeXmlParser;
+﻿using System;
+using AvinodeXmlParser;
 using FluentAssertions;
 using NUnit.Framework;
 
@@ -15,9 +16,17 @@ namespace AvinodeXmlTests
         [Test]
         public void ShouldAcceptTwoArguments()
         {
-            GivenANewHelper().AndTwoArguments();
+            GivenANewHelper().AndTwoRandomArguments();
             WhenValidateMethodInvoked();
             ThenFieldsArePopulatedCorrectly();
+        }
+
+        [Test]
+        public void FirstArgShouldBeAValidPath()
+        {
+            GivenANewHelper().AndTwoRandomArguments();
+            var del = new TestDelegate(WhenValidateMethodInvoked);
+            Assert.Throws<ArgumentException>(del);
         }
 
         private void ThenFieldsArePopulatedCorrectly()
@@ -26,7 +35,7 @@ namespace AvinodeXmlTests
             _helper.Arg2.Should().Be(_arg2);
         }
 
-        private void AndTwoArguments()
+        private void AndTwoRandomArguments()
         {
             _arg1 = "arg1";
             _arg2 = "arg2";
