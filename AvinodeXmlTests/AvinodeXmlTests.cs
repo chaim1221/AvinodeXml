@@ -27,7 +27,7 @@ namespace AvinodeXmlTests
 
         private void WithTwoValidArguments()
         {
-            _arg1 = ".\\schedaeromenu.xml";
+            _arg1 = ".\\wyvernmenu.xml";
             _arg2 = "/default.aspx";
         }
 
@@ -56,12 +56,19 @@ namespace AvinodeXmlTests
         }
 
         [Test]
-        public void ShouldReturnAModelOfNodeValues()
+        public void MethodUnfurlNodesShouldReturnAModelOfNodeValues()
         {
             GivenANewHelper().WithTwoValidArguments();
             WhenValidateMethodInvoked().AndParseXmlMethodInvoked()
                 .AndUnfurlNodesMethodInvoked();
             ThenHelperPopulatesAModelWhichContainsNodeValues();
+        }
+
+        [Test]
+        public void MethodUnfurlNodesAlsoMarksMatchingRecordsAsActive()
+        {
+            // Nothing, just added "active" to the test expectations
+            throw new Exception();
         }
 
         [Test]
@@ -75,8 +82,8 @@ namespace AvinodeXmlTests
 
         private void WithNewValidArguments()
         {
-            _arg1 = ".\\wyvernmenu.xml";
-            _arg2 = "/default.aspx";
+            _arg1 = ".\\schedaeromenu.xml";
+            _arg2 = "/Requests/OpenQuotes.aspx";
         }
 
         private void AndUnfurlNodesMethodInvoked()
@@ -145,30 +152,35 @@ namespace AvinodeXmlTests
                         {
                             DisplayName = "Home",
                             Path = new Uri("/Default.aspx", UriKind.Relative),
+                            Active = new Uri(_arg2, UriKind.Relative) == new Uri("/Default.aspx", UriKind.Relative),
                             SubMenuItem = null
                         },
                         new AvinodeMenuItem
                         {
                             DisplayName = "Trips",
                             Path = new Uri("/Requests/Quotes/CreateQuote.aspx", UriKind.Relative),
+                            Active = new Uri(_arg2, UriKind.Relative) == new Uri("/Requests/Quotes/CreateQuote.aspx", UriKind.Relative),
                             SubMenuItem = new List<AvinodeMenuItem>
                             {
                                 new AvinodeMenuItem
                                 {
                                     DisplayName = "Create Quote",
                                     Path = new Uri("/Requests/Quotes/CreateQuote.aspx", UriKind.Relative),
+                                    Active = new Uri(_arg2, UriKind.Relative) == new Uri("/Requests/Quotes/CreateQuote.aspx", UriKind.Relative),
                                     SubMenuItem = null
                                 },
                                 new AvinodeMenuItem
                                 {
                                     DisplayName = "Open Quotes",
                                     Path = new Uri("/Requests/OpenQuotes.aspx", UriKind.Relative),
+                                    Active = new Uri(_arg2, UriKind.Relative) == new Uri("/Requests/OpenQuotes.aspx", UriKind.Relative),
                                     SubMenuItem = null
                                 },
                                 new AvinodeMenuItem
                                 {
                                     DisplayName = "Scheduled Trips",
                                     Path = new Uri("/Requests/Trips/ScheduledTrips.aspx", UriKind.Relative),
+                                    Active = new Uri(_arg2, UriKind.Relative) == new Uri("/Requests/Trips/ScheduledTrips.aspx", UriKind.Relative),
                                     SubMenuItem = null
                                 }
                             }
@@ -177,24 +189,28 @@ namespace AvinodeXmlTests
                         {
                             DisplayName = "Company",
                             Path = new Uri("/mvc/company/view", UriKind.Relative),
+                            Active = new Uri(_arg2, UriKind.Relative) == new Uri("/mvc/company/view", UriKind.Relative),
                             SubMenuItem = new List<AvinodeMenuItem>
                             {
                                 new AvinodeMenuItem
                                 {
                                     DisplayName = "Customers",
                                     Path = new Uri("/customers/customers.aspx", UriKind.Relative),
+                                    Active = new Uri(_arg2, UriKind.Relative) == new Uri("/customers/customers.aspx", UriKind.Relative),
                                     SubMenuItem = null
                                 },
                                 new AvinodeMenuItem
                                 {
                                     DisplayName = "Pilots",
                                     Path = new Uri("/pilots/pilots.aspx", UriKind.Relative),
+                                    Active = new Uri(_arg2, UriKind.Relative) == new Uri("/pilots/pilots.aspx", UriKind.Relative),
                                     SubMenuItem = null
                                 },
                                 new AvinodeMenuItem
                                 {
                                     DisplayName = "Aircraft",
                                     Path = new Uri("/aircraft/Aircraft.aspx", UriKind.Relative),
+                                    Active = new Uri(_arg2, UriKind.Relative) == new Uri("/aircraft/Aircraft.aspx", UriKind.Relative),
                                     SubMenuItem = null
                                 }
                             }
@@ -207,30 +223,35 @@ namespace AvinodeXmlTests
                         {
                             DisplayName = "Home",
                             Path = new Uri("/mvc/wyvern/home", UriKind.Relative),
+                            Active = new Uri(_arg2, UriKind.Relative) == new Uri("/mvc/wyvern/home", UriKind.Relative),
                             SubMenuItem = new List<AvinodeMenuItem>
                             {
                                 new AvinodeMenuItem
                                 {
                                     DisplayName = "News",
                                     Path = new Uri("/mvc/wyvern/home/news", UriKind.Relative),
+                                    Active = new Uri(_arg2, UriKind.Relative) == new Uri("/mvc/wyvern/home/news", UriKind.Relative),
                                     SubMenuItem = null
                                 },
                                 new AvinodeMenuItem
                                 {
                                     DisplayName = "Directory",
                                     Path = new Uri("/Directory/Directory.aspx", UriKind.Relative),
+                                    Active = new Uri(_arg2, UriKind.Relative) == new Uri("/Directory/Directory.aspx", UriKind.Relative),
                                     SubMenuItem = new List<AvinodeMenuItem>
                                     {
                                         new AvinodeMenuItem
                                         {
                                             DisplayName = "Favorites",
                                             Path = new Uri("/TWR/Directory.aspx", UriKind.Relative),
+                                            Active = new Uri(_arg2, UriKind.Relative) == new Uri("/TWR/Directory.aspx", UriKind.Relative),
                                             SubMenuItem = null
                                         },
                                         new AvinodeMenuItem
                                         {
                                             DisplayName = "Search Aircraft",
                                             Path = new Uri("/TWR/AircraftSearch.aspx", UriKind.Relative),
+                                            Active = new Uri(_arg2, UriKind.Relative) == new Uri("/TWR/AircraftSearch.aspx", UriKind.Relative),
                                             SubMenuItem = null
                                         }
                                     }
@@ -241,24 +262,28 @@ namespace AvinodeXmlTests
                         {
                             DisplayName = "PASS",
                             Path = new Uri("/PASS/GeneratePASS.aspx", UriKind.Relative),
+                            Active = new Uri(_arg2, UriKind.Relative) == new Uri("/PASS/GeneratePASS.aspx", UriKind.Relative),
                             SubMenuItem = new List<AvinodeMenuItem>
                             {
                                 new AvinodeMenuItem
                                 {
                                     DisplayName = "Create New",
                                     Path = new Uri("/PASS/GeneratePASS.aspx", UriKind.Relative),
+                                    Active = new Uri(_arg2, UriKind.Relative) == new Uri("/PASS/GeneratePASS.aspx", UriKind.Relative),
                                     SubMenuItem = null
                                 },
                                 new AvinodeMenuItem
                                 {
                                     DisplayName = "Sent Requests",
                                     Path = new Uri("/PASS/YourPASSReports.aspx", UriKind.Relative),
+                                    Active = new Uri(_arg2, UriKind.Relative) == new Uri("/PASS/YourPASSReports.aspx", UriKind.Relative),
                                     SubMenuItem = null
                                 },
                                 new AvinodeMenuItem
                                 {
                                     DisplayName = "Received Requests",
                                     Path = new Uri("/PASS/Pending/PendingRequests.aspx", UriKind.Relative),
+                                    Active = new Uri(_arg2, UriKind.Relative) == new Uri("/PASS/Pending/PendingRequests.aspx", UriKind.Relative),
                                     SubMenuItem = null
                                 }
                             }
@@ -267,30 +292,35 @@ namespace AvinodeXmlTests
                         {
                             DisplayName = "Company",
                             Path = new Uri("/mvc/company/view", UriKind.Relative),
+                            Active = new Uri(_arg2, UriKind.Relative) == new Uri("/mvc/company/view", UriKind.Relative),
                             SubMenuItem = new List<AvinodeMenuItem>
                             {
                                 new AvinodeMenuItem
                                 {
                                     DisplayName = "Users",
                                     Path = new Uri("/mvc/account/list", UriKind.Relative),
+                                    Active = new Uri(_arg2, UriKind.Relative) == new Uri("/mvc/account/list", UriKind.Relative),
                                     SubMenuItem = null
                                 },
                                 new AvinodeMenuItem
                                 {
                                     DisplayName = "Aircraft",
                                     Path = new Uri("/aircraft/fleet.aspx", UriKind.Relative),
+                                    Active = new Uri(_arg2, UriKind.Relative) == new Uri("/aircraft/fleet.aspx", UriKind.Relative),
                                     SubMenuItem = null
                                 },
                                 new AvinodeMenuItem
                                 {
                                     DisplayName = "Insurance",
                                     Path = new Uri("/insurance/policies.aspx", UriKind.Relative),
+                                    Active = new Uri(_arg2, UriKind.Relative) == new Uri("/insurance/policies.aspx", UriKind.Relative),
                                     SubMenuItem = null
                                 },
                                 new AvinodeMenuItem
                                 {
                                     DisplayName = "Certificate",
                                     Path = new Uri("/Certificates/Certificates.aspx", UriKind.Relative),
+                                    Active = new Uri(_arg2, UriKind.Relative) == new Uri("/Certificates/Certificates.aspx", UriKind.Relative),
                                     SubMenuItem = null
                                 },
                             }

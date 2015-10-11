@@ -9,7 +9,7 @@ namespace AvinodeXmlParser
     public class Helper
     {
         public string FilePath;
-        public string RelativeUri;
+        public Uri RelativeUri;
         public XmlDocument XmlDocument;
         public XmlNodeList XmlNodeList;
         public List<AvinodeMenuItem> AvinodeMenuItems;
@@ -21,7 +21,7 @@ namespace AvinodeXmlParser
             if (!Uri.IsWellFormedUriString(args[1], UriKind.Relative))
                 throw new ArgumentException(args[1]);
             FilePath = args[0];
-            RelativeUri = args[1];
+            RelativeUri = new Uri(args[1], UriKind.Relative);
         }
 
         public XmlNodeList ParseXml()
