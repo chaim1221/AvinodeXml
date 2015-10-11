@@ -36,6 +36,21 @@ namespace AvinodeXmlTests
             Assert.Throws<ArgumentException>(del, _arg1);
         }
 
+        [Test]
+        public void SecondArgShouldThrowExceptionIfUriNotWellFormed()
+        {
+            GivenANewHelper().AndAnInvalidUri();
+            var del = new TestDelegate(WhenValidateMethodInvoked);
+            Assert.Throws<ArgumentException>(del, _arg2);
+        }
+
+        private void AndAnInvalidUri()
+        {
+            _arg1 = ".\\schedaeromenu.xml";
+            _arg2 = "I'm a really poorly formed URI, but I'm a great sentence.";
+            _args = new[] { _arg1, _arg2 };
+        }
+
         private void ThenFieldsArePopulatedCorrectly()
         {
             _helper.Arg1.Should().Be(_arg1);
