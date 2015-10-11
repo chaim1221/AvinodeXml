@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace AvinodeXmlParser
 {
@@ -6,6 +7,6 @@ namespace AvinodeXmlParser
     {
         public string DisplayName { get; set; }
         public Uri Path { get; set; }
-        public AvinodeMenuItem SubMenuItem { get; set; }
+        public List<AvinodeMenuItem> SubMenuItem { get; set; }
     }
 }
