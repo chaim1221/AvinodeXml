@@ -12,7 +12,7 @@ namespace AvinodeXmlParser
         public string RelativeUri;
         public XmlDocument XmlDocument;
         public XmlNodeList XmlNodeList;
-        public AvinodeMenuItem AvinodeMenuItem;
+        public List<AvinodeMenuItem> AvinodeMenuItems;
 
         public void Validate(string[] args)
         {
@@ -30,14 +30,21 @@ namespace AvinodeXmlParser
             xmlDocument.Load(FilePath);
             XmlDocument = xmlDocument;
             XmlNodeList = xmlDocument.SelectNodes("menu/item");
-            AvinodeMenuItem = new AvinodeMenuItem();
+            AvinodeMenuItems = new List<AvinodeMenuItem>();
             if (XmlNodeList == null) return;
             foreach (XmlNode node in XmlNodeList)
             {
                 var displayName = node["displayName"];
-                if (displayName != null) AvinodeMenuItem.DisplayName = displayName.InnerText;
                 var path = node["path"];
-                if (path != null) AvinodeMenuItem.Path = new Uri(path.Attributes["value"].Value, UriKind.Relative);
+                var subMenu = node["subMenu"];
+
+                if (displayName != null && path != null)
+                    AvinodeMenuItems.Add(new AvinodeMenuItem
+                    { 
+                        DisplayName = displayName.InnerText,
+                        Path = new Uri(path.Attributes["value"].Value, UriKind.Relative),
+                    });
+
                 break;
             }
         }
