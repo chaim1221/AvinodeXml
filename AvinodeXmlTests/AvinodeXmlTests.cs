@@ -14,11 +14,18 @@ namespace AvinodeXmlTests
         private string[] _args;
 
         [Test]
-        public void ShouldAcceptTwoArguments()
+        public void ShouldAcceptTwoValidArguments()
         {
-            GivenANewHelper().AndTwoRandomArguments();
+            GivenANewHelper().AndTwoValidArguments();
             WhenValidateMethodInvoked();
             ThenFieldsArePopulatedCorrectly();
+        }
+
+        private void AndTwoValidArguments()
+        {
+            _arg1 = "c:\\schedaeromenu.xml";
+            _arg2 = "/default.aspx";
+            _args = new [] {_arg1, _arg2 };
         }
 
         [Test]
