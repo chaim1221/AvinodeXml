@@ -28,7 +28,7 @@ namespace AvinodeXmlTests
         private void WithTwoValidArguments()
         {
             _arg1 = ".\\wyvernmenu.xml";
-            _arg2 = "/default.aspx";
+            _arg2 = "/mvc/account/list";
         }
 
         [Test]
@@ -62,12 +62,6 @@ namespace AvinodeXmlTests
             WhenValidateMethodInvoked().AndParseXmlMethodInvoked()
                 .AndUnfurlNodesMethodInvoked();
             ThenHelperPopulatesAModelWhichContainsNodeValues();
-        }
-
-        [Test]
-        public void MethodUnfurlNodesAlsoMarksMatchingRecordsAsActive()
-        {
-            // Nothing, just added "active" to the test expectations
         }
 
         [Test]
@@ -157,8 +151,8 @@ namespace AvinodeXmlTests
                         new AvinodeMenuItem
                         {
                             DisplayName = "Trips",
-                            Path = new Uri("/Requests/Quotes/CreateQuote.aspx", UriKind.Relative),
-                            Active = new Uri(_arg2, UriKind.Relative) == new Uri("/Requests/Quotes/CreateQuote.aspx", UriKind.Relative),
+                            Path = new Uri("/Requests/Quotes/CreateQuote.aspx", UriKind.Relative), // This is the only child I'm testing, but it should be enough for a failure.
+                            Active = new Uri(_arg2, UriKind.Relative) == new Uri("/Requests/Quotes/CreateQuote.aspx", UriKind.Relative) || new Uri(_arg2, UriKind.Relative) == new Uri("/Requests/OpenQuotes.aspx", UriKind.Relative),
                             SubMenuItem = new List<AvinodeMenuItem>
                             {
                                 new AvinodeMenuItem
