@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Xml;
 using AvinodeXmlParser;
 using FluentAssertions;
@@ -79,6 +80,32 @@ namespace AvinodeXmlTests
                     DisplayName = "Home",
                     Path = new Uri("/Default.aspx", UriKind.Relative),
                     SubMenuItem = null
+                },
+                new AvinodeMenuItem
+                {
+                    DisplayName = "Trips",
+                    Path = new Uri("/Requests/Quotes/CreateQuote.aspx", UriKind.Relative),
+                    SubMenuItem = new List<AvinodeMenuItem>
+                    {
+                        new AvinodeMenuItem
+                        {
+                            DisplayName = "Create Quote",
+                            Path = new Uri("/Requests/Quotes/CreateQuote.aspx", UriKind.Relative),
+                            SubMenuItem = null
+                        },
+                        new AvinodeMenuItem
+                        {
+                            DisplayName = "Open Quotes",
+                            Path = new Uri("/Requests/OpenQuotes.aspx", UriKind.Relative),
+                            SubMenuItem = null
+                        },
+                        new AvinodeMenuItem
+                        {
+                            DisplayName = "Scheduled Trips",
+                            Path = new Uri("/Requests/Trips/ScheduledTrips.aspx", UriKind.Relative),
+                            SubMenuItem = null
+                        }
+                    }
                 }
             };
             _helper.AvinodeMenuItems.ShouldBeEquivalentTo(expected);
