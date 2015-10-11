@@ -23,7 +23,7 @@ namespace AvinodeXmlTests
 
         private void AndTwoValidArguments()
         {
-            _arg1 = "c:\\schedaeromenu.xml";
+            _arg1 = ".\\schedaeromenu.xml";
             _arg2 = "/default.aspx";
             _args = new [] { _arg1, _arg2 };
         }
