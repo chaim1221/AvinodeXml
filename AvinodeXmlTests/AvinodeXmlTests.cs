@@ -60,7 +60,7 @@ namespace AvinodeXmlTests
             expected.Load(_arg1);
 
             _helper.XmlStuff.Should().NotBeNull();
-            _helper.XmlStuff.Should().BeEquivalentTo(expected);
+            _helper.XmlStuff.OuterXml.Should().Be(expected.OuterXml);
             _helper.XmlStuff.Should().BeOfType<XmlDocument>();
         }
 
