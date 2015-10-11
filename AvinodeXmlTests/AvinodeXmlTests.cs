@@ -68,7 +68,6 @@ namespace AvinodeXmlTests
         public void MethodUnfurlNodesAlsoMarksMatchingRecordsAsActive()
         {
             // Nothing, just added "active" to the test expectations
-            throw new Exception();
         }
 
         [Test]

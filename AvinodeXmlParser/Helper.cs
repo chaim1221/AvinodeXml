@@ -37,15 +37,17 @@ namespace AvinodeXmlParser
             foreach (XmlNode node in xmlNodes)
             {
                 var displayName = node["displayName"];
-                var path = node["path"];
+                var nodePath = node["path"];
                 var subMenu = node.SelectNodes("subMenu/item");
 
-                if (displayName != null && path != null)
+                if (displayName != null && nodePath != null)
                 {
+                    var uriPath = new Uri(nodePath.Attributes["value"].Value, UriKind.Relative);
                     avinodeMenuItems.Add(new AvinodeMenuItem
                     {
                         DisplayName = displayName.InnerText,
-                        Path = new Uri(path.Attributes["value"].Value, UriKind.Relative),
+                        Path = uriPath,
+                        Active = RelativeUri == uriPath,
                         SubMenuItem = subMenu != null && subMenu.Count > 0 ? UnfurlNodes(subMenu) : null
                     });
                 }
