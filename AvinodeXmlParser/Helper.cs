@@ -37,7 +37,6 @@ namespace AvinodeXmlParser
 
         private List<AvinodeMenuItem> UnfurlNodes(XmlNodeList xmlNodes)
         {
-            var i = 0;
             var avinodeMenuItems = new List<AvinodeMenuItem>();
             foreach (XmlNode node in xmlNodes)
             {
@@ -54,9 +53,6 @@ namespace AvinodeXmlParser
                         SubMenuItem = subMenu != null && subMenu.Count > 0 ? UnfurlNodes(subMenu) : null
                     });
                 }
-                i++;
-
-                if (i == 3) break;
             }
             return avinodeMenuItems;
         }
