@@ -8,35 +8,40 @@ namespace AvinodeXmlTests
     public class AvinodeXmlTests
     {
         Helper _helper;
+        private string _arg1;
+        private string _arg2;
+        private string[] _args;
 
         [Test]
         public void ShouldAcceptTwoArguments()
         {
-            GivenANewHelper();
-            WhenValidateMethodInvoked().WithTwoArguments();
+            GivenANewHelper().AndTwoArguments();
+            WhenValidateMethodInvoked();
             ThenFieldsArePopulatedCorrectly();
         }
 
         private void ThenFieldsArePopulatedCorrectly()
         {
-            "this".Should().Be("this");
-            _helper.arg1.Should().Be("arg1");
-            _helper.arg2.Should().Be("arg2");
+            _helper.Arg1.Should().Be(_arg1);
+            _helper.Arg2.Should().Be(_arg2);
         }
 
-        private void WithTwoArguments()
+        private void AndTwoArguments()
         {
-            var args = new [] { "arg1", "arg2" };
+            _arg1 = "arg1";
+            _arg2 = "arg2";
+            _args = new [] { _arg1, _arg2 };
         }
 
-        private AvinodeXmlTests WhenValidateMethodInvoked()
+        private void WhenValidateMethodInvoked()
         {
-            return this;
+            _helper.Validate(_args);
         }
 
-        private void GivenANewHelper()
+        private AvinodeXmlTests GivenANewHelper()
         {
             _helper = new Helper();
+            return this;
         }
     }
 }
