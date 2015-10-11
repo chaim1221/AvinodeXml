@@ -60,9 +60,9 @@ namespace AvinodeXmlTests
 
         private AvinodeXmlTests ThenHelperHasXmlContentInAFieldThatIgnoresWhitespace()
         {
-            var expected = new XmlDocument() { PreserveWhitespace = false };
-            expected.Load(_arg1);
-            _helper.XmlStuff.OuterXml.Should().Be(expected.OuterXml);
+            var xmlDoc = new XmlDocument { PreserveWhitespace = false };
+            xmlDoc.Load(_arg1);
+            _helper.XmlStuff.InnerXml.Should().Be(xmlDoc.InnerXml);
             return this;
         }
 

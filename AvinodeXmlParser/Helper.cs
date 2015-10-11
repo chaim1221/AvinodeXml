@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml;
 
 namespace AvinodeXmlParser
@@ -24,6 +26,7 @@ namespace AvinodeXmlParser
         {
             var doc = new XmlDocument();
             doc.Load(Arg1);
+            //var nodes = doc.GetElementsByTagName("item");
             XmlStuff = doc;
         }
     }
