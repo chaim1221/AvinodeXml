@@ -21,7 +21,7 @@ namespace AvinodeXmlParser
 
         public void ParseXml(string validXml)
         {
-            // TODO: Implementation
+            XmlStuff = validXml;
         }
     }
 }
