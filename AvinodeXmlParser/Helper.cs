@@ -22,7 +22,7 @@ namespace AvinodeXmlParser
 
         public void ParseXml()
         {
-            var doc = new XmlDocument { PreserveWhitespace = true };
+            var doc = new XmlDocument();
             doc.Load(Arg1);
             XmlStuff = doc;
         }

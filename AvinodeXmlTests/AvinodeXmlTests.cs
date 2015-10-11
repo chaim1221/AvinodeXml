@@ -12,7 +12,6 @@ namespace AvinodeXmlTests
         Helper _helper;
         private string _arg1;
         private string _arg2;
-        private string[] _args;
 
         [Test]
         public void ShouldAcceptTwoValidArguments()
@@ -22,12 +21,10 @@ namespace AvinodeXmlTests
             ThenFieldsContainingArgumentsArePopulatedCorrectly();
         }
 
-        private AvinodeXmlTests WithTwoValidArguments()
+        private void WithTwoValidArguments()
         {
             _arg1 = ".\\schedaeromenu.xml";
             _arg2 = "/default.aspx";
-            _args = new [] { _arg1, _arg2 };
-            return this;
         }
 
         [Test]
@@ -56,7 +53,7 @@ namespace AvinodeXmlTests
 
         private void ThenHelperHasInstantiatedXmlDocumentField()
         {
-            var expected = new XmlDocument {PreserveWhitespace = true};
+            var expected = new XmlDocument();
             expected.Load(_arg1);
 
             _helper.XmlStuff.Should().NotBeNull();
@@ -73,7 +70,6 @@ namespace AvinodeXmlTests
         {
             _arg1 = ".\\schedaeromenu.xml";
             _arg2 = "I'm a really poorly formed URI, but I'm a great sentence.";
-            _args = new[] { _arg1, _arg2 };
         }
 
         private void ThenFieldsContainingArgumentsArePopulatedCorrectly()
@@ -86,12 +82,12 @@ namespace AvinodeXmlTests
         {
             _arg1 = "a:\\setup.exe";
             _arg2 = "/default.aspx";
-            _args = new [] { _arg1, _arg2 };
         }
 
         private AvinodeXmlTests WhenValidateMethodInvoked()
         {
-            _helper.Validate(_args);
+            var args = new[] { _arg1, _arg2 };
+            _helper.Validate(args);
             return this;
         }
 
