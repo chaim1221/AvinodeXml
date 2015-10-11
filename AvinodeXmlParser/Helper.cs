@@ -8,9 +8,10 @@ namespace AvinodeXmlParser
 {
     public class Helper
     {
-        public string Arg1;
-        public object Arg2;
-        public XmlDocument XmlStuff;
+        public string FilePath;
+        public string RelativeUri;
+        public XmlDocument XmlDocument;
+        public XmlNodeList XmlNodeList;
 
         public void Validate(string[] args)
         {
@@ -18,16 +19,16 @@ namespace AvinodeXmlParser
                 throw new ArgumentException(args[0]);
             if (!Uri.IsWellFormedUriString(args[1], UriKind.Relative))
                 throw new ArgumentException(args[1]);
-            Arg1 = args[0];
-            Arg2 = args[1];
+            FilePath = args[0];
+            RelativeUri = args[1];
         }
 
         public void ParseXml()
         {
-            var doc = new XmlDocument();
-            doc.Load(Arg1);
-            //var nodes = doc.GetElementsByTagName("item");
-            XmlStuff = doc;
+            var xmlDocument = new XmlDocument();
+            xmlDocument.Load(FilePath);
+            XmlDocument = xmlDocument;
+            var items = xmlDocument.GetElementsByTagName("item");
         }
     }
 }

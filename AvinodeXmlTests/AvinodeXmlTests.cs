@@ -50,25 +50,38 @@ namespace AvinodeXmlTests
             WhenValidateMethodInvoked().AndParseXmlMethodInvoked();
             ThenHelperHasInstantiatedXmlDocumentField()
                 .ThenHelperHasXmlContentInAFieldThatIgnoresWhitespace()
-                .ThenResultingFieldIsOfType<XmlDocument>();
+                .ThenResultingFieldIsOfType<XmlDocument>(_helper.XmlDocument);
         }
 
-        private void ThenResultingFieldIsOfType<T>()
+        [Test]
+        public void ShouldBeAbleToEnumerateXmlFields()
         {
-            _helper.XmlStuff.Should().BeOfType<T>();
+            GivenANewHelper().WithTwoValidArguments();
+            WhenValidateMethodInvoked().AndParseXmlMethodInvoked();
+            ThenHelperHasInstantiatedXmlNodeListField();
+        }
+
+        private void ThenHelperHasInstantiatedXmlNodeListField()
+        {
+            _helper.XmlNodeList.Should().NotBeNull();
+        }
+
+        private void ThenResultingFieldIsOfType<T>(XmlDocument xmlDocument)
+        {
+            xmlDocument.Should().BeOfType<T>();
         }
 
         private AvinodeXmlTests ThenHelperHasXmlContentInAFieldThatIgnoresWhitespace()
         {
             var xmlDoc = new XmlDocument { PreserveWhitespace = false };
             xmlDoc.Load(_arg1);
-            _helper.XmlStuff.InnerXml.Should().Be(xmlDoc.InnerXml);
+            _helper.XmlDocument.InnerXml.Should().Be(xmlDoc.InnerXml);
             return this;
         }
 
         private AvinodeXmlTests ThenHelperHasInstantiatedXmlDocumentField()
         {
-            _helper.XmlStuff.Should().NotBeNull();
+            _helper.XmlDocument.Should().NotBeNull();
             return this;
         }
 
@@ -85,8 +98,8 @@ namespace AvinodeXmlTests
 
         private void ThenFieldsContainingArgumentsArePopulatedCorrectly()
         {
-            _helper.Arg1.Should().Be(_arg1);
-            _helper.Arg2.Should().Be(_arg2);
+            _helper.FilePath.Should().Be(_arg1);
+            _helper.RelativeUri.Should().Be(_arg2);
         }
 
         private void WithAnInvalidPath()
