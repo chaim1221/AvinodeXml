@@ -29,11 +29,11 @@ namespace AvinodeXmlTests
         }
 
         [Test]
-        public void FirstArgShouldThrowExceptionIfPathNotAValid()
+        public void FirstArgShouldThrowExceptionIfPathNotValid()
         {
-            GivenANewHelper().AndTwoRandomArguments();
+            GivenANewHelper().AndAnInvalidPath();
             var del = new TestDelegate(WhenValidateMethodInvoked);
-            Assert.Throws<ArgumentException>(del);
+            Assert.Throws<ArgumentException>(del, _arg1);
         }
 
         private void ThenFieldsArePopulatedCorrectly()
@@ -42,10 +42,10 @@ namespace AvinodeXmlTests
             _helper.Arg2.Should().Be(_arg2);
         }
 
-        private void AndTwoRandomArguments()
+        private void AndAnInvalidPath()
         {
-            _arg1 = "arg1";
-            _arg2 = "arg2";
+            _arg1 = "a:\\setup.exe";
+            _arg2 = "/default.aspx";
             _args = new [] { _arg1, _arg2 };
         }
 
