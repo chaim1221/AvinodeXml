@@ -48,17 +48,28 @@ namespace AvinodeXmlTests
         {
             GivenANewHelper().WithTwoValidArguments();
             WhenValidateMethodInvoked().AndParseXmlMethodInvoked();
-            ThenHelperHasInstantiatedXmlDocumentField();
+            ThenHelperHasInstantiatedXmlDocumentField()
+                .ThenHelperHasXmlContentInAFieldThatIgnoresWhitespace()
+                .ThenResultingFieldIsOfType<XmlDocument>();
         }
 
-        private void ThenHelperHasInstantiatedXmlDocumentField()
+        private void ThenResultingFieldIsOfType<T>()
         {
-            var expected = new XmlDocument();
-            expected.Load(_arg1);
+            _helper.XmlStuff.Should().BeOfType<T>();
+        }
 
-            _helper.XmlStuff.Should().NotBeNull();
+        private AvinodeXmlTests ThenHelperHasXmlContentInAFieldThatIgnoresWhitespace()
+        {
+            var expected = new XmlDocument() { PreserveWhitespace = false };
+            expected.Load(_arg1);
             _helper.XmlStuff.OuterXml.Should().Be(expected.OuterXml);
-            _helper.XmlStuff.Should().BeOfType<XmlDocument>();
+            return this;
+        }
+
+        private AvinodeXmlTests ThenHelperHasInstantiatedXmlDocumentField()
+        {
+            _helper.XmlStuff.Should().NotBeNull();
+            return this;
         }
 
         private void AndParseXmlMethodInvoked()
@@ -98,3 +109,4 @@ namespace AvinodeXmlTests
         }
     }
 }
+
