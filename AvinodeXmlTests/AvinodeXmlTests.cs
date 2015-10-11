@@ -284,8 +284,8 @@ namespace AvinodeXmlTests
                         new AvinodeMenuItem
                         {
                             DisplayName = "Company",
-                            Path = new Uri("/mvc/company/view", UriKind.Relative),
-                            Active = new Uri(_arg2, UriKind.Relative) == new Uri("/mvc/company/view", UriKind.Relative),
+                            Path = new Uri("/mvc/company/view", UriKind.Relative), // it found this one too, good confirmation of principle
+                            Active = new Uri(_arg2, UriKind.Relative) == new Uri("/mvc/company/view", UriKind.Relative) || new Uri(_arg2, UriKind.Relative) == new Uri("/mvc/account/list", UriKind.Relative),
                             SubMenuItem = new List<AvinodeMenuItem>
                             {
                                 new AvinodeMenuItem

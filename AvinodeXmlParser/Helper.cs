@@ -10,9 +10,6 @@ namespace AvinodeXmlParser
     {
         public string FilePath;
         public Uri RelativeUri;
-        public XmlDocument XmlDocument;
-        public XmlNodeList XmlNodeList;
-        public List<AvinodeMenuItem> AvinodeMenuItems;
 
         public void Validate(string[] args)
         {
@@ -43,12 +40,15 @@ namespace AvinodeXmlParser
                 if (displayName != null && nodePath != null)
                 {
                     var uriPath = new Uri(nodePath.Attributes["value"].Value, UriKind.Relative);
+                    var subMenuItem = subMenu != null && subMenu.Count > 0 ? UnfurlNodes(subMenu) : null;
+                    var isActive = RelativeUri == uriPath || (subMenuItem != null && subMenuItem.Any(menuItem => menuItem.Active));
+
                     avinodeMenuItems.Add(new AvinodeMenuItem
                     {
                         DisplayName = displayName.InnerText,
                         Path = uriPath,
-                        Active = RelativeUri == uriPath,
-                        SubMenuItem = subMenu != null && subMenu.Count > 0 ? UnfurlNodes(subMenu) : null
+                        Active = isActive,
+                        SubMenuItem = subMenuItem
                     });
                 }
             }
