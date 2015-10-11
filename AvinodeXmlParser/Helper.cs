@@ -56,7 +56,7 @@ namespace AvinodeXmlParser
                 }
                 i++;
 
-                if (i == 1) break;
+                if (i == 3) break;
             }
             return avinodeMenuItems;
         }

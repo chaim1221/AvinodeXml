@@ -106,6 +106,32 @@ namespace AvinodeXmlTests
                             SubMenuItem = null
                         }
                     }
+                },
+                new AvinodeMenuItem
+                {
+                    DisplayName = "Company",
+                    Path = new Uri("/mvc/company/view", UriKind.Relative),
+                    SubMenuItem = new List<AvinodeMenuItem>
+                    {
+                        new AvinodeMenuItem
+                        {
+                            DisplayName = "Customers",
+                            Path = new Uri("/customers/customers.aspx", UriKind.Relative),
+                            SubMenuItem = null
+                        },
+                        new AvinodeMenuItem
+                        {
+                            DisplayName = "Pilots",
+                            Path = new Uri("/pilots/pilots.aspx", UriKind.Relative),
+                            SubMenuItem = null
+                        },
+                        new AvinodeMenuItem
+                        {
+                            DisplayName = "Aircraft",
+                            Path = new Uri("/aircraft/Aircraft.aspx", UriKind.Relative),
+                            SubMenuItem = null
+                        }
+                    }
                 }
             };
             _helper.AvinodeMenuItems.ShouldBeEquivalentTo(expected);
