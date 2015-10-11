@@ -72,13 +72,13 @@ namespace AvinodeXmlTests
 
         private void ThenHelperPopulatesAModelWhichContainsNodeValues()
         {
-            AvinodeMenuItem expected = new AvinodeMenuItem
+            var expected = new AvinodeMenuItem
             {
                 DisplayName = "Home",
                 Path = new Uri("/Default.aspx", UriKind.Relative),
                 SubMenuItem = null
             };
-            _helper.AvinodeMenuItem.Should().Be(expected);
+            _helper.AvinodeMenuItem.ShouldBeEquivalentTo(expected);
         }
 
         private void ThenHelperHasInstantiatedXmlNodeListField()

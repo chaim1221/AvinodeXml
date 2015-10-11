@@ -29,8 +29,17 @@ namespace AvinodeXmlParser
             var xmlDocument = new XmlDocument();
             xmlDocument.Load(FilePath);
             XmlDocument = xmlDocument;
-            XmlNodeList = xmlDocument.GetElementsByTagName("item");
-            
+            XmlNodeList = xmlDocument.SelectNodes("menu/item");
+            AvinodeMenuItem = new AvinodeMenuItem();
+            if (XmlNodeList == null) return;
+            foreach (XmlNode node in XmlNodeList)
+            {
+                var displayName = node["displayName"];
+                if (displayName != null) AvinodeMenuItem.DisplayName = displayName.InnerText;
+                var path = node["path"];
+                if (path != null) AvinodeMenuItem.Path = new Uri(path.Attributes["value"].Value, UriKind.Relative);
+                break;
+            }
         }
     }
 }
