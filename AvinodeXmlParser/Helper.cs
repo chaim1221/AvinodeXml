@@ -8,8 +8,8 @@ namespace AvinodeXmlParser
 {
     public class Helper
     {
-        public string FilePath;
-        public Uri RelativeUri;
+        public string FilePath { get; private set; }
+        public Uri RelativeUri { get; private set; }
 
         public void Validate(string[] args)
         {
